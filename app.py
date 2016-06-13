@@ -3,10 +3,11 @@ from functools import wraps
 from flask import (Flask, session, render_template,
                    redirect, url_for, request, flash)
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 app.config.from_object(os.getenv('APP_SETTINGS'))
-
+bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 from models import *
 
