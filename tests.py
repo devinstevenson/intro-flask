@@ -22,7 +22,6 @@ class BaseTestCase(TestCase):
 
 class FlaskTestCase(BaseTestCase):
     def test_index(self):
-
         response = self.client.get('/login', content_type='html/text')
         self.assertEqual(response.status_code, 200)
 
@@ -33,7 +32,6 @@ class FlaskTestCase(BaseTestCase):
 
     # Ensure login behaves correctly with correct credentials
     def test_correct_login(self):
-
         response = self.client.post('/login',
                                     data=dict(username="admin", password="admin"),
                                     follow_redirects=True)
@@ -41,7 +39,6 @@ class FlaskTestCase(BaseTestCase):
 
     # Ensure login behaves correctly with incorrect credentials
     def test_incorrect_login(self):
-
         response = self.client.post('/login',
                                     data=dict(username="wrong", password="wrong"),
                                     follow_redirects=True)
@@ -49,7 +46,6 @@ class FlaskTestCase(BaseTestCase):
 
     # Ensure logout behaves correctly
     def test_logout(self):
-
         self.client.post('/login',
                          data=dict(username="admin", password="admin"),
                          follow_redirects=True)
@@ -58,15 +54,13 @@ class FlaskTestCase(BaseTestCase):
 
     # Ensure that main page requires user login
     def test_main_route_requires_login(self):
-
         response = self.client.get('/', follow_redirects=True)
-        self.assertIn(b'You need to login first.', response.data)
+        self.assertIn(b'Please log in to access this page.', response.data)
 
     # Ensure that logout page requires user login
     def test_logout_route_requires_login(self):
-
         response = self.client.get('/logout', follow_redirects=True)
-        self.assertIn(b'You need to login first.', response.data)
+        self.assertIn(b'Please log in to access this page.', response.data)
 
     # Ensure that posts show up on the main page
     def test_posts_show_up_on_main_page(self):
