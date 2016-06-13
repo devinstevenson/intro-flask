@@ -1,11 +1,15 @@
-from flask import (Flask, session, render_template, g,
-                   redirect, url_for, request, flash)
 from functools import wraps
-import sqlite3
+from flask import (Flask, session, render_template,
+                   redirect, url_for, request, flash)
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.secret_key = 'blahyahflanders49fsld0rD?><?Sfo923ur029'
-app.database = 'sample.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+from models import *
 
 # login decorator
 def login_required(f):
@@ -21,14 +25,7 @@ def login_required(f):
 @app.route('/')
 @login_required
 def home():
-    posts = []
-    try:
-        g.db = connect_db()
-        cur = g.db.execute("select * from posts")
-        posts = [dict(title=row[0], description=row[1]) for row in cur.fetchall()]
-        g.db.close()
-    except sqlite3.OperationalError:
-        flash("You have no database!")
+    posts = db.session.query(BlogPost).all()
     return render_template('index.html', posts=posts)
 
 @app.route('/welcome')
@@ -56,8 +53,8 @@ def logout():
     flash('You were logged out')
     return redirect(url_for('welcome'))
 
-def connect_db():
-    return sqlite3.connect(app.database)
+# def connect_db():
+#     return sqlite3.connect(app.database)
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5000, debug=True)
