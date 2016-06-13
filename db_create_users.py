@@ -1,5 +1,5 @@
-from app import db
-from models import User
+from project import db
+from project.models import User
 
 
 db.session.add(User("devin", "emberdesign@gmail.com", "secretkey2"))
