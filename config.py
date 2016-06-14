@@ -2,9 +2,8 @@ import os
 
 class BaseConfig(object):
     DEBUG = False
-    # SECRET_KEY = u'DnfhKSY3ALkNsnaxkVg2GXAQU1nQu/AjwwMTjRL+pQg=='
-    SECRET_KEY = os.getenv('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+    SECRET_KEY = os.getenv('SECRET_KEY', u'DnfhKSY3ALkNsnaxkVg2GXAQU1nQu/AjwwMTjRL+pQg==')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///:memory:')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
