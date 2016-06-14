@@ -1,5 +1,3 @@
-alembic
-cffi
 click==6.6
 coverage==4.1
 Flask==0.10
