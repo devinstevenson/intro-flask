@@ -1,6 +1,6 @@
-from flask_testing import TestCase
-from project import app, db
-from project.models import User, BlogPost
+from flask_testing import TestCase  # pragma: no cover
+from project import app, db  # pragma: no cover
+from project.models import User, BlogPost  # pragma: no cover
 
 class BaseTestCase(TestCase):
     def create_app(self):

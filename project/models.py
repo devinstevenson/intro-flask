@@ -16,7 +16,7 @@ class BlogPost(db.Model):
         self.author_id = author_id
 
     def __repr__(self):
-        return '<title {}'.format(self.title)
+        return '<title - {}>'.format(self.title)
 
 
 class User(db.Model):
