@@ -2,8 +2,8 @@ from functools import wraps
 from flask import (Blueprint, render_template,
                    redirect, url_for, request, flash)
 from flask_login import login_user, login_required, logout_user
-from forms import LoginForm
-from project.models import User, bcrypt
+from forms import LoginForm, RegistrationForm
+from project.models import User, bcrypt, db
 
 
 ##############
@@ -42,7 +42,6 @@ def login():
             pw = request.form.get('password')
             user = User.query.filter_by(name=request.form['username']).first()
             if user is not None and bcrypt.check_password_hash(user.password, pw):
-                # session['logged_in'] = True
                 login_user(user)
                 flash('You were logged in')
                 return redirect(url_for('home.home'))
@@ -57,3 +56,16 @@ def logout():
     logout_user()
     flash('You were logged out')
     return redirect(url_for('home.welcome'))
+
+@users_blueprint.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm(request.form)
+    if form.validate_on_submit():
+        user = User(name=form.username.data,
+                    email=form.email.data,
+                    password=form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        return redirect(url_for('home.home'))
+    return render_template('registration.html', form=form)
