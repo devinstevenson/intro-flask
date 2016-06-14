@@ -13,7 +13,7 @@ class BaseTestCase(TestCase):
     # must use these function names
     def setUp(self):
         db.create_all()
-        db.session.add(BlogPost("Test post", "This is a test. Only a test."))
+        db.session.add(BlogPost("Test post", "This is a test. Only a test.", 1))
         db.session.add(User("admin", "ad@min.com", "admin"))
         db.session.commit()
 

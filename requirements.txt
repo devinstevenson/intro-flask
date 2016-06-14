@@ -1,5 +1,6 @@
 cffi
 click==6.6
+coverage==4.1
 Flask==0.10
 flask-bcrypt==0.7.1
 flask-login==0.2.11
