@@ -4,13 +4,13 @@
 ##To setup on server
 
 ##Upstart
-```copy introflask.conf file to /etc/init/
+```copy intro-flask/server/init/introflask.conf file to /etc/init/
 change env vars in introflask.conf```
 
 ##Nginx
-```copy nginx.conf to /etc/nginx/
-copy blockips.conf to /etc/nginx/
-copy introflask.conf to /etc/nginx/sites-available
+```copy intro-flask/server/nginx/nginx.conf to /etc/nginx/
+copy intro-flask/server/nginx/blockips.conf to /etc/nginx/
+copy intro-flask/server/nginx/sites-available/introflask to /etc/nginx/sites-available
 run $ ln -s /etc/nginx/sites-available/introflask /etc/nginx/sites-enabled/```
 
 ##SSL
